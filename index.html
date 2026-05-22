@@ -33,9 +33,17 @@ border-radius:10px;
 box-shadow:0 0 10px rgba(0,0,0,0.15);
 }
 
-h2{text-align:center;}
+h2{
+text-align:center;
+margin-top:0;
+}
 
-label{font-weight:bold;}
+label{
+font-weight:bold;
+font-size:14px;
+display:block;
+margin-bottom:5px;
+}
 
 input,select{
 width:100%;
@@ -43,23 +51,63 @@ padding:12px;
 margin-top:5px;
 margin-bottom:12px;
 font-size:16px;
-border-radius:6px;
-border:1px solid #ccc;
+border-radius:4px;
+border:1px solid #bdbdbd;
+box-sizing:border-box;
+background:white;
 }
 
 fieldset{
 margin-bottom:15px;
 padding:10px;
+border:1px solid #d0d0d0;
+background:#fafafa;
+}
+
+legend{
+font-size:13px;
+color:#444;
+padding:0 5px;
+}
+
+.linhaCampo{
+display:flex;
+gap:0;
+margin-bottom:10px;
+}
+
+.linhaCampo input{
+margin:0;
+border-radius:4px 0 0 4px;
+}
+
+.unidade{
+width:90px;
+background:#f5f5f5;
+border:1px solid #bdbdbd;
+border-left:none;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+color:#444;
+border-radius:0 4px 4px 0;
 }
 
 button{
-width:95%;
+width:100%;
 padding:15px;
 font-size:18px;
 background:#1b5e20;
 color:white;
 border:none;
-border-radius:8px;
+border-radius:6px;
+cursor:pointer;
+}
+
+#instalarApp{
+margin-top:10px;
+background:#0d47a1;
 }
 
 </style>
@@ -70,12 +118,12 @@ border-radius:8px;
 
 <div class="container" id="painel">
 
-<h2>Painel de Testes</h2>
+<h2>Relatorio de Testes</h2>
 
-<label>Ordem de Servico</label>
+<label>Ordem de Serviço</label>
 <input type="number" id="ordemServico">
 
-<label>Tecnico</label>
+<label>Técnico</label>
 
 <select id="tecnico">
 <option>Selecione</option>
@@ -90,13 +138,11 @@ border-radius:8px;
 <label>Equipamento</label>
 
 <select id="equipamento" onchange="ajustarCampos()">
-
-<option value="motor">Motor Eletrico</option>
+<option value="motor">Motor Elétrico</option>
 <option value="bomba">Bomba</option>
-
 </select>
 
-<label>Potencia</label>
+<label>Potência</label>
 
 <select id="potencia">
 
@@ -127,49 +173,81 @@ border-radius:8px;
 
 <div id="pressaoMaximaBox">
 
-<label>Pressao Maxima</label>
+<label>Pressão Máxima</label>
+
+<div class="linhaCampo">
 <input type="number" id="pressaoMaxima">
+<div class="unidade">Bar</div>
+</div>
 
 </div>
 
 <fieldset id="corrente1Box">
 
-<legend>Corrente Eletrica 01</legend>
+<legend>Corrente Elétrica 01</legend>
 
+<div class="linhaCampo">
 <input type="number" id="c1f1" placeholder="Fase 1">
+<div class="unidade">Amperes</div>
+</div>
+
+<div class="linhaCampo">
 <input type="number" id="c1f2" placeholder="Fase 2">
+<div class="unidade">Amperes</div>
+</div>
+
+<div class="linhaCampo">
 <input type="number" id="c1f3" placeholder="Fase 3">
+<div class="unidade">Amperes</div>
+</div>
 
 </fieldset>
 
 <div id="pressaoOperacionalBox">
 
-<label>Pressao Operacional</label>
+<label>Pressão Operacional</label>
+
+<div class="linhaCampo">
 <input type="number" id="pressaoOperacional">
+<div class="unidade">Bar</div>
+</div>
 
 </div>
 
 <fieldset id="corrente2Box">
 
-<legend>Corrente Eletrica 02</legend>
+<legend>Corrente Elétrica 02</legend>
 
+<div class="linhaCampo">
 <input type="number" id="c2f1" placeholder="Fase 1">
+<div class="unidade">Amperes</div>
+</div>
+
+<div class="linhaCampo">
 <input type="number" id="c2f2" placeholder="Fase 2">
+<div class="unidade">Amperes</div>
+</div>
+
+<div class="linhaCampo">
 <input type="number" id="c2f3" placeholder="Fase 3">
+<div class="unidade">Amperes</div>
+</div>
 
 </fieldset>
 
 <label>Temperatura</label>
-<input type="number" id="temperatura">
 
-<label>Fotos e Videos</label>
+<div class="linhaCampo">
+<input type="number" id="temperatura">
+<div class="unidade">ºC</div>
+</div>
+
+<label>Fotos e Vídeos</label>
 <input type="file" id="arquivos" multiple accept="image/*,video/*">
 
-<button onclick="enviar()">
-Enviar Relatorio
-</button>
+<button onclick="enviar()">Enviar Relatório</button>
 
-<button id="instalarApp" style="display:none;margin-top:10px;background:#0d47a1;">
+<button id="instalarApp" style="display:none;">
 Instalar App
 </button>
 
@@ -203,7 +281,7 @@ let os = document.getElementById("ordemServico").value;
 
 if(!os){
 
-alert("Informe a Ordem de Servico");
+alert("Informe a Ordem de Serviço");
 
 return;
 
@@ -228,19 +306,7 @@ imagem:imagemBase64
 
 })
 
-.then(r=>r.text())
-
-.then(res=>{
-
-alert("Relatorio enviado");
-
-})
-
-.catch(err=>{
-
-alert("Erro ao enviar");
-
-});
+.then(()=>alert("Relatório enviado"))
 
 });
 
