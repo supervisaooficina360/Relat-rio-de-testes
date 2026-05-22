@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+margin:0;
+padding:10px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.15);
+}
+
+h2{
+text-align:center;
+}
+
+label{
+font-weight:bold;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin-top:5px;
+margin-bottom:12px;
+font-size:16px;
+border-radius:6px;
+border:1px solid #ccc;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:15px;
+font-size:18px;
+background:#1b5e20;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container" id="painel">
+
+<h2>Painel de Testes</h2>
+
+<label>Ordem de Serviço</label>
+<input type="number" id="ordemServico">
+
+<label>Técnico</label>
+
+<select id="tecnico">
+<option>Selecione</option>
+<option>Alberto</option>
+<option>Wanderson</option>
+<option>Diego</option>
+<option>Geovane</option>
+<option>Luciano</option>
+<option>Fabio</option>
+</select>
+
+<label>Equipamento</label>
+
+<select id="equipamento">
+<option>Motor Elétrico</option>
+<option>Bomba</option>
+</select>
+
+<label>Potência</label>
+
+<select id="potencia">
+<option>1 cv</option>
+<option>2 cv</option>
+<option>3 cv</option>
+<option>5 cv</option>
+<option>10 cv</option>
+</select>
+
+<label>Temperatura</label>
+<input type="number" id="temperatura">
+
+</div>
+
+<br>
+
+<button onclick="enviarImagem()">
+Salvar Relatório no Drive
+</button>
+
+<script>
+
+async function enviarImagem(){
+
+let os = document.getElementById("ordemServico").value;
+
+if(!os){
+
+alert("Informe a Ordem de Serviço");
+
+return;
+
+}
+
+let painel = document.getElementById("painel");
+
+html2canvas(painel).then(canvas => {
+
+let imagemBase64 = canvas.toDataURL("image/jpeg",0.9);
+
+fetch("https://script.google.com/macros/s/AKfycbzkFlQxx9ZWJWNqMHqRFSMkOiADH97qk8dJazfrW78jVYnVlVhFuodWgLI_x8p5XSLn/exec",{
+
+method:"POST",
+
+body:JSON.stringify({
+
+os:os,
+imagem:imagemBase64
+
+})
+
+})
+
+.then(r=>r.text())
+
+.then(res=>{
+
+alert("Imagem salva no Drive");
+
+})
+
+.catch(err=>{
+
+alert("Erro ao salvar");
+
+});
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
