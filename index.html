@@ -296,17 +296,11 @@ return;
 
 }
 
-let botaoEnviar = document.querySelector("button");
-
-botaoEnviar.style.display = "none";
-
 let painel = document.getElementById("painel");
 
 html2canvas(painel).then(canvas => {
 
 let imagemBase64 = canvas.toDataURL("image/jpeg",0.9);
-
-botaoEnviar.style.display = "block";
 
 fetch("COLE_AQUI_URL_DO_WEBAPP",{
 
@@ -321,7 +315,19 @@ imagem:imagemBase64
 
 })
 
-.then(()=>alert("Relatório enviado"))
+.then(r=>r.text())
+
+.then(res=>{
+
+alert("Relatório enviado");
+
+})
+
+.catch(err=>{
+
+alert("Erro ao enviar");
+
+});
 
 });
 
