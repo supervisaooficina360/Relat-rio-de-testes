@@ -103,7 +103,6 @@ color:white;
 border:none;
 border-radius:6px;
 cursor:pointer;
-margin-top:5px;
 }
 
 #instalarApp{
@@ -119,7 +118,7 @@ background:#0d47a1;
 
 <div class="container" id="painel">
 
-<h2>Relatorio de Testes</h2>
+<h2>Painel de Testes</h2>
 
 <label>Ordem de Serviço</label>
 <input type="number" id="ordemServico">
@@ -254,7 +253,17 @@ background:#0d47a1;
 <div class="unidade">ºC</div>
 </div>
 
-<button onclick="enviar()">Enviar Relatório</button>
+<div id="areaArquivos">
+
+<label for="arquivos">Fotos e Vídeos</label>
+
+<input type="file" id="arquivos" multiple accept="image/*,video/*">
+
+</div>
+
+<button id="botaoEnviar" onclick="enviar()">
+Enviar Relatório
+</button>
 
 <button id="instalarApp" style="display:none;">
 Instalar App
@@ -296,11 +305,19 @@ return;
 
 }
 
+// ESCONDE ELEMENTOS QUE NÃO DEVEM APARECER NA IMAGEM
+document.getElementById("areaArquivos").style.display = "none";
+document.getElementById("botaoEnviar").style.display = "none";
+
 let painel = document.getElementById("painel");
 
 html2canvas(painel).then(canvas => {
 
 let imagemBase64 = canvas.toDataURL("image/jpeg",0.9);
+
+// MOSTRA NOVAMENTE
+document.getElementById("areaArquivos").style.display = "block";
+document.getElementById("botaoEnviar").style.display = "block";
 
 fetch("COLE_AQUI_URL_DO_WEBAPP",{
 
@@ -315,19 +332,7 @@ imagem:imagemBase64
 
 })
 
-.then(r=>r.text())
-
-.then(res=>{
-
-alert("Relatório enviado");
-
-})
-
-.catch(err=>{
-
-alert("Erro ao enviar");
-
-});
+.then(()=>alert("Relatório enviado"))
 
 });
 
