@@ -103,6 +103,7 @@ color:white;
 border:none;
 border-radius:6px;
 cursor:pointer;
+margin-top:5px;
 }
 
 #instalarApp{
@@ -181,7 +182,7 @@ background:#0d47a1;
 <option>440V</option>
 
 </select>
-  
+
 <div id="pressaoMaximaBox">
 
 <label>Pressão Máxima</label>
@@ -253,9 +254,6 @@ background:#0d47a1;
 <div class="unidade">ºC</div>
 </div>
 
-<label>Fotos e Vídeos</label>
-<input type="file" id="arquivos" multiple accept="image/*,video/*">
-
 <button onclick="enviar()">Enviar Relatório</button>
 
 <button id="instalarApp" style="display:none;">
@@ -298,19 +296,9 @@ return;
 
 }
 
-// ELEMENTOS QUE NÃO DEVEM APARECER NA IMAGEM
 let botaoEnviar = document.querySelector("button");
-let labelArquivos = document.querySelector('label[for="arquivos"]') || document.querySelectorAll("label")[7];
-let campoArquivos = document.getElementById("arquivos");
 
-// ESCONDE TEMPORARIAMENTE
 botaoEnviar.style.display = "none";
-
-if(labelArquivos){
-labelArquivos.style.display = "none";
-}
-
-campoArquivos.style.display = "none";
 
 let painel = document.getElementById("painel");
 
@@ -318,16 +306,9 @@ html2canvas(painel).then(canvas => {
 
 let imagemBase64 = canvas.toDataURL("image/jpeg",0.9);
 
-// MOSTRA NOVAMENTE APÓS CAPTURA
 botaoEnviar.style.display = "block";
 
-if(labelArquivos){
-labelArquivos.style.display = "block";
-}
-
-campoArquivos.style.display = "block";
-
-fetch("https://script.google.com/macros/s/AKfycbxaKCFcd-35Zaw8BSKyNNF3Nh-DapsOmH0FxDBbVBku_K-Tpu-FyHGjzTXcbKpd4tRQ/exec",{
+fetch("COLE_AQUI_URL_DO_WEBAPP",{
 
 method:"POST",
 
