@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<link rel="manifest" href="manifest.json">
-
-<meta name="theme-color" content="#1b5e20">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<link rel="icon" href="icon-192.png">
-
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,14 +27,10 @@ box-shadow:0 0 10px rgba(0,0,0,0.15);
 
 h2{
 text-align:center;
-margin-top:0;
 }
 
 label{
 font-weight:bold;
-font-size:14px;
-display:block;
-margin-bottom:5px;
 }
 
 input,select{
@@ -51,47 +39,9 @@ padding:12px;
 margin-top:5px;
 margin-bottom:12px;
 font-size:16px;
-border-radius:4px;
-border:1px solid #bdbdbd;
+border-radius:6px;
+border:1px solid #ccc;
 box-sizing:border-box;
-background:white;
-}
-
-fieldset{
-margin-bottom:15px;
-padding:10px;
-border:1px solid #d0d0d0;
-background:#fafafa;
-}
-
-legend{
-font-size:13px;
-color:#444;
-padding:0 5px;
-}
-
-.linhaCampo{
-display:flex;
-gap:0;
-margin-bottom:10px;
-}
-
-.linhaCampo input{
-margin:0;
-border-radius:4px 0 0 4px;
-}
-
-.unidade{
-width:90px;
-background:#f5f5f5;
-border:1px solid #bdbdbd;
-border-left:none;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:12px;
-color:#444;
-border-radius:0 4px 4px 0;
 }
 
 button{
@@ -101,13 +51,8 @@ font-size:18px;
 background:#1b5e20;
 color:white;
 border:none;
-border-radius:6px;
+border-radius:8px;
 cursor:pointer;
-}
-
-#instalarApp{
-margin-top:10px;
-background:#0d47a1;
 }
 
 </style>
@@ -137,163 +82,35 @@ background:#0d47a1;
 
 <label>Equipamento</label>
 
-<select id="equipamento" onchange="ajustarCampos()">
-<option value="motor">Motor Elétrico</option>
-<option value="bomba">Bomba</option>
+<select id="equipamento">
+<option>Motor Elétrico</option>
+<option>Bomba</option>
 </select>
 
 <label>Potência</label>
 
 <select id="potencia">
-
-<option>0.25 cv</option>
-<option>0.33 cv</option>
-<option>0.50 cv</option>
-<option>0.75 cv</option>
-<option>1.0 cv</option>
-<option>1.5 cv</option>
-<option>2.0 cv</option>
-<option>3.0 cv</option>
-<option>4.0 cv</option>
-<option>5.0 cv</option>
-<option>6.0 cv</option>
-<option>7.5 cv</option>
+<option>1 cv</option>
+<option>2 cv</option>
+<option>3 cv</option>
+<option>5 cv</option>
 <option>10 cv</option>
-<option>15 cv</option>
-<option>20 cv</option>
-<option>25 cv</option>
-<option>30 cv</option>
-<option>40 cv</option>
-<option>50 cv</option>
-<option>60 cv</option>
-<option>75 cv</option>
-<option>100 cv</option>
-
 </select>
-
-<label>Tensão de Teste</label>
-
-<select id="tensaoTeste">
-
-<option>127V</option>
-<option>220V</option>
-<option>380V</option>
-<option>440V</option>
-
-</select>
-
-<div id="pressaoMaximaBox">
-
-<label>Pressão Máxima</label>
-
-<div class="linhaCampo">
-<input type="number" id="pressaoMaxima">
-<div class="unidade">Bar</div>
-</div>
-
-</div>
-
-<fieldset id="corrente1Box">
-
-<legend>Corrente Elétrica 01</legend>
-
-<div class="linhaCampo">
-<input type="number" id="c1f1" placeholder="Fase 1">
-<div class="unidade">Amperes</div>
-</div>
-
-<div class="linhaCampo">
-<input type="number" id="c1f2" placeholder="Fase 2">
-<div class="unidade">Amperes</div>
-</div>
-
-<div class="linhaCampo">
-<input type="number" id="c1f3" placeholder="Fase 3">
-<div class="unidade">Amperes</div>
-</div>
-
-</fieldset>
-
-<div id="pressaoOperacionalBox">
-
-<label>Pressão Operacional</label>
-
-<div class="linhaCampo">
-<input type="number" id="pressaoOperacional">
-<div class="unidade">Bar</div>
-</div>
-
-</div>
-
-<fieldset id="corrente2Box">
-
-<legend>Corrente Elétrica 02</legend>
-
-<div class="linhaCampo">
-<input type="number" id="c2f1" placeholder="Fase 1">
-<div class="unidade">Amperes</div>
-</div>
-
-<div class="linhaCampo">
-<input type="number" id="c2f2" placeholder="Fase 2">
-<div class="unidade">Amperes</div>
-</div>
-
-<div class="linhaCampo">
-<input type="number" id="c2f3" placeholder="Fase 3">
-<div class="unidade">Amperes</div>
-</div>
-
-</fieldset>
 
 <label>Temperatura</label>
-
-<div class="linhaCampo">
 <input type="number" id="temperatura">
-<div class="unidade">ºC</div>
-</div>
-
-<div id="areaArquivos">
-
-<label for="arquivos">Fotos e Vídeos</label>
-
-<input type="file" id="arquivos" multiple accept="image/*,video/*">
 
 </div>
 
-<button id="botaoEnviar" onclick="enviar()">
-Enviar Relatório
+<br>
+
+<button onclick="enviarImagem()">
+Salvar Relatório no Drive
 </button>
-
-<button id="instalarApp" style="display:none;">
-Instalar App
-</button>
-
-</div>
 
 <script>
 
-function ajustarCampos(){
-
-let equipamento = document.getElementById("equipamento").value;
-
-if(equipamento === "motor"){
-
-document.getElementById("pressaoMaximaBox").style.display="none";
-document.getElementById("pressaoOperacionalBox").style.display="none";
-document.getElementById("corrente2Box").style.display="none";
-
-}else{
-
-document.getElementById("pressaoMaximaBox").style.display="block";
-document.getElementById("pressaoOperacionalBox").style.display="block";
-document.getElementById("corrente2Box").style.display="block";
-
-}
-
-}
-
-async function enviar(){
+async function enviarImagem(){
 
 let os = document.getElementById("ordemServico").value;
 
@@ -305,19 +122,11 @@ return;
 
 }
 
-// ESCONDE ELEMENTOS QUE NÃO DEVEM APARECER NA IMAGEM
-document.getElementById("areaArquivos").style.display = "none";
-document.getElementById("botaoEnviar").style.display = "none";
-
 let painel = document.getElementById("painel");
 
 html2canvas(painel).then(canvas => {
 
 let imagemBase64 = canvas.toDataURL("image/jpeg",0.9);
-
-// MOSTRA NOVAMENTE
-document.getElementById("areaArquivos").style.display = "block";
-document.getElementById("botaoEnviar").style.display = "block";
 
 fetch("COLE_AQUI_URL_DO_WEBAPP",{
 
@@ -332,41 +141,21 @@ imagem:imagemBase64
 
 })
 
-.then(()=>alert("Relatório enviado"))
+.then(r=>r.text())
 
-});
+.then(res=>{
 
-}
+alert("Imagem salva no Drive");
 
-ajustarCampos()
+})
 
-let deferredPrompt;
+.catch(err=>{
 
-window.addEventListener('beforeinstallprompt', (e)=>{
-
-e.preventDefault();
-
-deferredPrompt = e;
-
-document.getElementById("instalarApp").style.display="block";
-
-});
-
-document.getElementById("instalarApp").addEventListener("click", ()=>{
-
-deferredPrompt.prompt();
-
-deferredPrompt.userChoice.then(()=>{
-
-deferredPrompt=null;
+alert("Erro ao salvar");
 
 });
 
 });
-
-if('serviceWorker' in navigator){
-
-navigator.serviceWorker.register('sw.js');
 
 }
 
